@@ -1,9 +1,10 @@
-import { Test } from "./src/screens/Test";
 import "./src/styles/global.css";
 import { useFonts } from "expo-font";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Router } from "./src/routes/Routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,5 +20,9 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  return <Test />;
+  return (
+    <SafeAreaProvider>
+      <Router />
+    </SafeAreaProvider>
+  );
 }
