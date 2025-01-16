@@ -3,3 +3,8 @@ export interface MutationOptions<TDATA> {
   onError?: (message: string) => void;
   errorMessage?: string;
 }
+
+export enum QueryKeys {
+  BrandList = "BrandList",
+  CarList = "CarList",
+}
