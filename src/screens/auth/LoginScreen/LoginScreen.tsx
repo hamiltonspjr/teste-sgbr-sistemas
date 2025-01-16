@@ -10,6 +10,7 @@ import { FormTextInput } from "../../../components/Form/FormTextInput";
 import { FormPasswordInput } from "../../../components/Form/FormPasswordInput";
 import { Button } from "../../../components/Button/Button";
 import { useAuthSignIn } from "../../../domain/Auth/useCases/useAuthSignIn";
+import { useToastService } from "../../../services/toast/useToast";
 
 export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   const { control, formState, handleSubmit } = useForm<LoginSchemaType>({
@@ -20,11 +21,9 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
     },
     mode: "onChange",
   });
-
+  const { showToast } = useToastService();
   const { isLoading, signIn } = useAuthSignIn({
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: (message) => showToast({ message, type: "error" }),
   });
 
   function submitForm({ user, password }: LoginSchemaType) {
