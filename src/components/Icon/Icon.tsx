@@ -3,6 +3,8 @@ import { ArrowLeftIcon } from "../../assets/icons/ArrowLeftIcon";
 import { EyeOnIcon } from "../../assets/icons/EyeOnIcon";
 import { EyeOffIcon } from "../../assets/icons/EyeOffIcon";
 import { Pressable } from "react-native";
+import { CheckRoundIcon } from "../../assets/icons/CheckRoundIcon";
+import { ErrorRoundIcon } from "../../assets/icons/ErrorRoundIcon";
 
 export interface IconBase {
   size?: number;
@@ -30,6 +32,8 @@ export function Icon({ name, color = "text-black", size, onPress }: IconProps) {
 
 const iconRegistry = {
   arrowLeft: ArrowLeftIcon,
+  checkRound: CheckRoundIcon,
+  errorRound: ErrorRoundIcon,
   eyeOn: EyeOnIcon,
   eyeOff: EyeOffIcon,
 };

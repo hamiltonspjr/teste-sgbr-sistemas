@@ -9,6 +9,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { initializeStorage } from "./src/services/storage/storage";
 import { asyncStorage } from "./src/services/storage/implementation/asyncStorage";
 import { AuthCredentialsProvider } from "./src/services/authCredentials/Providers/AuthCredentialsProvider";
+import { ToastProvider } from "./src/services/toast/Providers/ToastProvider";
+import { Toast } from "./src/components/Toast/Toast";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +34,10 @@ export default function App() {
     <AuthCredentialsProvider>
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
-          <Router />
+          <ToastProvider>
+            <Router />
+            <Toast />
+          </ToastProvider>
         </SafeAreaProvider>
       </QueryClientProvider>
     </AuthCredentialsProvider>
