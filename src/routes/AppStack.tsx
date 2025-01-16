@@ -5,7 +5,9 @@ import { ModelScreen } from "../screens/app/ModelScreen/ModelScreen";
 
 export type AppStackParamList = {
   HomeScreen: undefined;
-  ModelScreen: undefined;
+  ModelScreen: {
+    idBrand: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
