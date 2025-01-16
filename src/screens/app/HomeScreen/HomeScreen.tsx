@@ -17,17 +17,18 @@ import { Screen } from "../../../components/Screen/Screen";
 import { HomeHeader } from "./components/HomeHeader";
 import { HomeEmpty } from "./components/HomeEmpty";
 import { Text } from "../../../components/Text/Text";
+import { AppScreenProps } from "../../../routes/navigationTypes";
 
-export function HomeScreen() {
+export function HomeScreen({ navigation }: AppScreenProps<"HomeScreen">) {
   const { user, removeCredentials } = useAuthCredentials();
   const { list, isError, isLoading, refresh } = useBrandList();
 
-  function goToModelScreen() {
-    // TODO: implementar
+  function goToModelScreen(id: string) {
+    navigation.navigate("ModelScreen", { idBrand: id });
   }
 
   function renderItem({ item }: ListRenderItemInfo<Brand>) {
-    return <Card name={item.name} onPress={goToModelScreen} />;
+    return <Card name={item.name} onPress={() => goToModelScreen(item.id)} />;
   }
   const flatListRef = React.useRef<FlatList<Brand>>(null);
   useScrollToTop(flatListRef);
@@ -49,7 +50,7 @@ export function HomeScreen() {
         ListHeaderComponent={
           <View className="justify-center">
             <HomeHeader username={user?.name} signOut={removeCredentials} />
-            <Text className="mb-6 text-center" preset="paragraphMedium">
+            <Text className="mb-6 text-center" preset="paragraphSmall">
               Clique em uma marca para conhecer os carros dela
             </Text>
           </View>
