@@ -18,7 +18,7 @@ export function ScreenHeader({ canGoBack }: Props) {
       {canGoBack && (
         <TouchableOpacity
           onPress={navigation.goBack}
-          className="flex-row items-center"
+          className="flex-row items-center mt-6"
         >
           <Icon size={ICON_SIZE} name="arrowLeft" color={colors.green[500]} />
           <Text preset="paragraphMedium" className="ml-2">
