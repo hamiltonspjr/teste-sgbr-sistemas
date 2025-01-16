@@ -5,6 +5,14 @@ import { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Router } from "./src/routes/Routes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { initializeStorage } from "./src/services/storage/storage";
+import { asyncStorage } from "./src/services/storage/implementation/asyncStorage";
+import { AuthCredentialsProvider } from "./src/services/authCredentials/Providers/AuthCredentialsProvider";
+
+const queryClient = new QueryClient();
+
+initializeStorage(asyncStorage);
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,8 +29,12 @@ export default function App() {
     return null;
   }
   return (
-    <SafeAreaProvider>
-      <Router />
-    </SafeAreaProvider>
+    <AuthCredentialsProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <Router />
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </AuthCredentialsProvider>
   );
 }

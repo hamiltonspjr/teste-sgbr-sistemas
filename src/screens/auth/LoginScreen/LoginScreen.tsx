@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormTextInput } from "../../../components/Form/FormTextInput";
 import { FormPasswordInput } from "../../../components/Form/FormPasswordInput";
 import { Button } from "../../../components/Button/Button";
+import { useAuthSignIn } from "../../../domain/Auth/useCases/useAuthSignIn";
 
 export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
   const { control, formState, handleSubmit } = useForm<LoginSchemaType>({
@@ -20,8 +21,14 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
     mode: "onChange",
   });
 
+  const { isLoading, signIn } = useAuthSignIn({
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   function submitForm({ user, password }: LoginSchemaType) {
-    //TODO: implementar lógica de login
+    signIn({ user, password });
   }
 
   return (
@@ -50,6 +57,7 @@ export function LoginScreen({}: AuthScreenProps<"LoginScreen">) {
         />
         <Button
           title="Entrar"
+          loading={isLoading}
           onPress={handleSubmit(submitForm)}
           disabled={!formState.isValid}
         />
